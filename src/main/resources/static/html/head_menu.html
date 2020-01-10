@@ -1,0 +1,42 @@
+<!-- 头部导航 -->
+<header class="header">
+	<nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow">
+		<ul class="ml-auto d-flex align-items-center list-unstyled mb-0" style="margin-right: 35px;">
+			<li class="nav-item dropdown ml-auto">
+				<a id="userInfo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
+					<img src="/image/avatar-6.jpg" alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow">
+				</a>
+				<div aria-labelledby="userInfo" class="dropdown-menu" style="width: 60px;">
+					<a href="#" class="dropdown-item">
+						<strong class="d-block text-uppercase headings-font-family">
+							<input type="button" class="form-control" name="empName" />
+						</strong>
+						
+						<strong class="d-block text-uppercase headings-font-family">
+							<input type="button" class="form-control" value="锁屏" onclick="checkForm()" />
+						</strong>
+						
+						<strong class="d-block text-uppercase headings-font-family">
+							<input type="button" class="form-control" value="退出" onclick="logout()" />
+						</strong>
+					</a>
+				</div>
+			</li>
+		</ul>
+	</nav>
+</header>
+
+<script type="text/javascript">
+	$(function(){
+		$("input[name^='empName']").val(GetQueryValue('empName'));
+	});
+
+	function logout(){
+		window.location.href = "/login.html";
+	}
+	
+	function checkForm(){
+		window.location.href = "/html/locked.html?empId=" + GetQueryValue('empId')
+		+ "&empName=" + GetQueryValue('empName');
+	}
+</script>

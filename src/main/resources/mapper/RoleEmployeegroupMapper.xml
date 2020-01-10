@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nan.mapper.RoleEmployeegroupMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nan.entity.RoleEmployeegroup">
+        <id column="id" property="id" />
+        <result column="role_id" property="roleId" />
+        <result column="employeeGroup_id" property="employeegroupId" />
+    </resultMap>
+    
+    <resultMap id="BaseResultMapExtral" type="com.nan.entity.RoleEmployeegroup">
+    	<id column="id" property="id" />
+        <result column="role_id" property="roleId" />
+        <result column="employeeGroup_id" property="employeegroupId" />
+        
+        <association property="role">
+	        <result column="role_name" property="roleName" />
+        </association>
+        
+        <association property="employeegroup">
+	        <result column="empGroup_name" property="empgroupName" />
+        </association>
+    </resultMap>
+    
+    <select id="list" resultMap="BaseResultMapExtral">
+    	select re.*,role.role_name,empGroup.empGroup_name 
+    	from role role,employeegroup empGroup,role_employeegroup re
+		where role.id = re.role_id and empGroup.id = re.employeeGroup_id
+		<if test="search != null and search != ''">
+			and (role.role_name like '%${search}%' or empGroup.empGroup_name like '%${search}%')
+	  	</if>
+    	
+    	<if test="sortName != null and sortName != ''">
+	  		order by ${sortName} ${sortOrder}
+	  	</if>
+    	limit #{pageNum},#{pageSize}
+	</select>
+
+</mapper>

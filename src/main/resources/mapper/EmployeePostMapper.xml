@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nan.mapper.EmployeePostMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nan.entity.EmployeePost">
+        <id column="id" property="id" />
+        <result column="post_id" property="postId" />
+        <result column="employee_id" property="employeeId" />
+    </resultMap>
+    
+    <resultMap id="BaseResultMapExtral" type="com.nan.entity.EmployeePost">
+    	<id column="id" property="id" />
+        <result column="post_id" property="postId" />
+        <result column="employee_id" property="employeeId" />
+        
+        <association property="employee">
+	        <result column="emp_name" property="empName" />
+        </association>
+        
+        <association property="post">
+	        <result column="post_name" property="postName" />
+        </association>
+    </resultMap>
+    
+    <select id="list" resultMap="BaseResultMapExtral">
+    	select ep.*,emp.emp_name,post.post_name  
+    	from employee emp,employee_post ep,post post
+		where emp.id = ep.employee_id and post.id = ep.post_id
+		<if test="search != null and search != ''">
+			and (emp.emp_name like '%${search}%' or post.post_name like '%${search}%')
+	  	</if>
+    	
+    	<if test="sortName != null and sortName != ''">
+	  		order by ${sortName} ${sortOrder}
+	  	</if>
+    	limit #{pageNum},#{pageSize}
+	</select>
+
+</mapper>

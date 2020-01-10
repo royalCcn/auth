@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nan.mapper.EmployeeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nan.entity.Employee">
+        <id column="id" property="id" />
+        <result column="emp_name" property="empName" />
+        <result column="emp_code" property="empCode" />
+        <result column="account" property="account" />
+        <result column="pwd" property="pwd" />
+        <result column="emp_type" property="empType" />
+        <result column="phone" property="phone" />
+        <result column="address" property="address" />
+        <result column="post" property="post" />
+        <result column="hire_date" property="hireDate" />
+        <result column="graduation" property="graduation" />
+        <result column="education" property="education" />
+        <result column="emp_resume" property="empResume" />
+        <result column="image" property="image" />
+        <result column="sta" property="sta" />
+        <result column="info" property="info" />
+    </resultMap>
+    
+    <select id="list" resultMap="BaseResultMap">
+    	select * from employee
+    	<where>
+		  	<choose>
+		        <when test="search != null and search != ''">
+		            and (emp_name like '%${search}%' or emp_code like '%${search}%' or account like '%${search}%')
+		        </when>
+		        <otherwise>
+		            1 = 1
+		        </otherwise>
+		    </choose>
+    	</where>
+    	<if test="sortName != null and sortName != ''">
+	  		order by ${sortName} ${sortOrder}
+	  	</if>
+    	limit #{pageNum},#{pageSize}
+	</select>
+
+</mapper>

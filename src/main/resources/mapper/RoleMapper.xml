@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nan.mapper.RoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nan.entity.Role">
+        <id column="id" property="id" />
+        <result column="role_name" property="roleName" />
+        <result column="role_code" property="roleCode" />
+        <result column="sta" property="sta" />
+        <result column="info" property="info" />
+    </resultMap>
+    
+    <select id="list" resultMap="BaseResultMap">
+    	select * from role
+    	<where>
+		  	<choose>
+		        <when test="search != null and search != ''">
+		            and (role_name like '%${search}%' or role_code like '%${search}%' or info like '%${search}%')
+		        </when>
+		        <otherwise>
+		            1 = 1
+		        </otherwise>
+		    </choose>
+    	</where>
+    	<if test="sortName != null and sortName != ''">
+	  		order by ${sortName} ${sortOrder}
+	  	</if>
+    	limit #{pageNum},#{pageSize}
+	</select>
+
+</mapper>

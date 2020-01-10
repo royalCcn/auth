@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nan.mapper.MenuPermissionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nan.entity.MenuPermission">
+        <id column="id" property="id" />
+        <result column="menu_id" property="menuId" />
+        <result column="permission_id" property="permissionId" />
+    </resultMap>
+    
+    <resultMap id="BaseResultMapExtral" type="com.nan.entity.MenuPermission">
+    	<id column="id" property="id" />
+        <result column="menu_id" property="menuId" />
+        <result column="permission_id" property="permissionId" />
+        
+        <association property="menu">
+	        <result column="menu_name" property="menuName" />
+        </association>
+        
+        <association property="permission">
+	        <result column="perm_name" property="permName" />
+        </association>
+    </resultMap>
+    
+    <select id="list" resultMap="BaseResultMapExtral">
+    	select mp.*,menu.menu_name,perm.perm_name  
+    	from menu menu,menu_permission mp,permission perm
+		where menu.id = mp.menu_id and perm.id = mp.permission_id
+		<if test="search != null and search != ''">
+			and (menu.menu_name like '%${search}%' or perm.perm_name like '%${search}%')
+	  	</if>
+    	
+    	<if test="sortName != null and sortName != ''">
+	  		order by ${sortName} ${sortOrder}
+	  	</if>
+    	limit #{pageNum},#{pageSize}
+	</select>
+
+</mapper>

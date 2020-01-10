@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <title>老人</title>
+	
+    <script src="/js/common.js"></script>
+</head>
+</head>
+<body>
+	<div id="head_menu"></div>
+	
+    <div class="d-flex align-items-stretch">
+		<div id="left_menu"></div>
+		
+		<!-- 主体 -->
+		<div class="page-holder w-100 d-flex flex-wrap">
+			<div class="container-fluid px-xl-5">
+		        <!--内容-->
+		        <div class="wrapper">
+		        	<!--页面标题-->
+		        	<div class="page-title-box">
+		                <h4 class="page-title">职工管理</h4>
+		                <div class="clearfix"></div>
+		            </div>
+		            <!--页面标题-->         
+		           
+		        	<!--列表-->
+		        	<div class="row">
+		        		<div class="col-md-12">
+		        			<div class="white-box">
+								<h2 class="header-title">
+									<button type="button" class="btn btn-default" onclick="back()"
+										style="color:#008000;font-weight:bold;"> 
+										返回
+									</button>
+									<button type="button" class="btn btn-default" onclick="save()"
+										style="color:#008000;font-weight:bold;"> 
+										保存
+									</button>
+								</h2>
+								<br><br><br>
+								<form class="form-horizontal" role="form" method="post" name="form" th:action="@{/employee/save.html}" 
+									enctype="multipart/form-data">           
+									<div class="col-md-11">
+										<input class="form-control" type="text" id="id" name="id" th:value="${object.id}" style="display:none" />
+										<div class="form-group has-success">
+											<label for="empName" class="col-sm-2 control-label">名称</label>
+											<div class="col-md-4">
+												<input class="form-control" type="text" id="empName" name="empName" th:value="${object.empName}" />
+											</div>
+											
+											<label for="empCode" class="col-sm-2 control-label">编号</label>
+											<div class="col-md-4">
+												<input class="form-control" type="text" id="empCode" name="empCode" th:value="${object.empCode}" />
+											</div>
+										</div>
+										
+										<div class="form-group has-success">
+											<label for="account" class="col-sm-2 control-label">账号</label>
+											<div class="col-md-4">
+												<input class="form-control" type="text" id="account" name="account" th:value="${object.account}" />
+											</div>
+											
+											<label for="pwd" class="col-sm-2 control-label">密码</label>
+											<div class="col-md-4">
+												<input class="form-control" type="text" id="pwd" name="pwd" th:value="${object.pwd}" />
+											</div>
+										</div>
+										
+										<div class="form-group has-success">
+											<label for="address" class="col-sm-2 control-label">地址</label>
+											<div class="col-md-4">
+												<input class="form-control" type="text" id="address" name="address" th:value="${object.address}" />
+											</div>
+											
+											<label for="phone" class="col-sm-2 control-label">联系电话</label>
+											<div class="col-md-4">
+												<input class="form-control" type="text" id="phone" name="phone" th:value="${object.phone}" />
+											</div>
+										</div>
+										
+										<div class="form-group has-success">
+											<label for="post" class="col-sm-2 control-label">职位</label>
+											<div class="col-md-4">
+												<input class="form-control" type="text" id="post" name="post" th:value="${object.post}" />
+											</div>
+											
+											<label for="phone" class="col-sm-2 control-label">入职时间</label>
+											<div class="col-md-4">
+												<input class="form-control" type="text" id="hireDate" name="hireDate" th:value="${#dates.format(object.hireDate,'yyyy-MM-dd')}" />
+											</div>
+										</div>
+										
+										<div class="form-group has-success">
+											<label for="graduation" class="col-sm-2 control-label">毕业时间</label>
+											<div class="col-md-4">
+												<input class="form-control" type="text" id="graduation" name="graduation" th:value="${#dates.format(object.graduation,'yyyy-MM-dd')}" />
+											</div>
+											
+											<label for="education" class="col-sm-2 control-label">教育背景</label>
+											<div class="col-md-4">
+												<input class="form-control" type="text" id="education" name="education" th:value="${object.education}" />
+											</div>
+										</div>
+										
+										<div class="form-group has-success">
+											<label for="empResume" class="col-sm-2 control-label">个人简历</label>
+											<div class="col-md-4">
+												<input class="form-control" type="text" id="empResume" name="empResume" th:value="${object.empResume}" />
+											</div>
+											
+											<label for="image" class="col-sm-2 control-label">图片</label>
+											<div class="col-md-4">
+												<input class="form-control" type="text" id="image" name="image" th:value="${object.image}" />
+											</div>
+										</div>
+										
+										<div class="form-group has-success">
+											<label for="empType" class="col-sm-2 control-label">类型</label>
+											<div class="col-md-4">
+												<input class="form-control" type="text" id="empType" name="empType" th:value="${object.empType}" />
+											</div>
+											
+											<label for="starttime" class="col-sm-2 control-label">状态</label>
+											<div class="col-md-4">
+												<!-- <label class="radio-inline">
+													<input type="radio" id="sta" name="sta" value="启用" th:field="*{object.sta}">启用
+												</label>
+												<label class="radio-inline">
+													<input type="radio" id="sta" name="sta" value="停用" th:field="*{object.sta}">停用
+												</label> -->
+											</div>
+										</div>
+										
+										<div class="form-group has-success">
+											<label for="info" class="col-sm-2 control-label">说明</label>
+											<div class="col-md-4">
+												<input class="form-control" type="text" id="info" name="info" th:value="${object.info}" />
+											</div>
+										</div>
+										
+									</div>
+								</form>
+		        		   </div>
+		        	   </div>
+					</div>
+		        	<!--列表-->
+		        </div>
+		        <!--内容-->
+        	</div>
+        </div>
+	</div>
+	<script type="text/javascript">
+	    $("#head_menu").load("/html/head_menu.html");
+	    $("#left_menu").load("/html/left_menu.html");
+
+		$(function(){
+			$("#recordDate").datepicker({
+				format: "yyyy-mm-dd",
+				language: "zh-CN"
+			});
+			
+			$("#summernote").summernote({
+				lang : 'zh-CN',
+				height: 265,      // 定义编辑框高度
+				minHeight: null,  // 定义编辑框最低的高度
+				maxHeight: null,  // 定义编辑框最高的高度
+				focus: true,
+			});
+	
+			//ajax上传图片
+			function sendFile($summernote, file) {
+				var formData = new FormData();
+				formData.append("file", file);
+				$.ajax({
+					url: "{:U('Upload/upload_img')}",//路径是你控制器中上传图片的方法，下面controller里面我会写到
+					data: formData,
+					cache: false,
+					contentType: false,
+					processData: false,
+					type: 'POST',
+					success: function (data) {
+						$summernote.summernote('insertImage', data, function ($image) {
+							$image.attr('src', data);
+						});
+					}, 
+					error:function(){       
+						alert("上传失败!");       
+					} 
+				});
+			}
+		});
+		
+		function back(){
+			history.back();
+		}
+					
+		function save(){
+			var content = $("#summernote").code();
+			$("#content").val(content);
+			document.form.submit();
+		}
+	</script>
+</body>
+
+</html>
